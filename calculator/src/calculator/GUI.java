@@ -168,6 +168,7 @@ public class GUI extends JFrame implements ActionListener
 		setTitle("Mike's Calculator");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setPreferredSize(new Dimension(WIDTH, IFPANEL_HEIGHT + IPANEL_HEIGHT + BPANEL_HEIGHT + RPANEL_HEIGHT));
+		setResizable(false);
 		
 		contentPane = getContentPane();
 		

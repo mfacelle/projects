@@ -1,0 +1,11 @@
+Projects
+Mike Facelle
+
+Directories:
+-completed_files:	contains completed, executable project files
+
+-suny_projects:		contains projects done for courses at SUNY New Paltz
+	-computer_architecture: MIPS-like processor design project
+	-embedded_linux: 	street lane recognition using OpenCV
+
+-calculator:		Java-based scientific parsing calculator
