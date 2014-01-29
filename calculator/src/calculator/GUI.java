@@ -111,7 +111,7 @@ public class GUI extends JFrame implements ActionListener
 	/** Border template for titled borders <code>IF_BORDER</code>, <code>F_BORDER</code>, <code>X_BORDER</code> */
 	public static final Border I_BORDER_0 = BorderFactory.createLineBorder(Color.BLACK, 1);
 	/** TitledBorder for <code>info_panel</code> */
-	public static final Border IF_BORDER = BorderFactory.createTitledBorder(I_BORDER_0,"Info", TitledBorder.LEFT, TitledBorder.TOP, INF_FONT_0);
+	public static final Border IF_BORDER = BorderFactory.createTitledBorder(I_BORDER_0,"", TitledBorder.LEFT, TitledBorder.TOP, INF_FONT_0);
 	/** TitledBorder for <code>f_panel</code> */
 	public static final Border F_BORDER = BorderFactory.createTitledBorder(I_BORDER_0,"Function", TitledBorder.LEFT, TitledBorder.TOP, ERR_FONT);
 	/** TitledBorder for <code>x_panel</code> */

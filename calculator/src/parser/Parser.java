@@ -7,15 +7,17 @@ import parser.exceptions.*;
  *  <br><br><b>Grammar:</b>
  *  <code><pre>
  *  <br> expr   ::= term     | expr + term     | expr - term
- *  <br> term1  ::= factor   | term ^ factor   | term E factor
- *  <br> term2  ::= factor   | term * factor   | term / factor 
+ *  <br> term1  ::= factor   | term * factor   | term / factor 
+ *  <br> term2  ::= factor   | term ^ factor   | term E factor
  *  <br> factor ::= ( expr ) | number|variable | -factor
  *  </pre></code>
  *  <br><br>
+ *  A term1 and term2 are used so that order-of-operations is done correctly
+ *  according to PEMDAS
  *  
  *  @author Mike Facelle
  *  @date 1/28/14
- *  @version 2.0
+ *  @version 2.1
  *  
  */
 public class Parser
@@ -222,30 +224,34 @@ public class Parser
     
     private void expression(Value result) throws InvalidNumberException, InvalidWordException
     {
-        term(result);
+        term1(result);
         while (token == '+' || token == '-') {
             char op = token;
             Value subresult = new Value();
             nextToken();
-            term(subresult);
+            term1(subresult);
             result.setValue(arith(result.getValue(), op, subresult.getValue()));
         }
     }
     
     // --------------------------------
 
-    private void term(Value result) throws InvalidNumberException, InvalidWordException
+    private void term1(Value result) throws InvalidNumberException, InvalidWordException
     {
-        factor(result);
-        // exponentials will happen first; oder-of-operations
-        while (token == '^' || token == 'E') {
-        	char op = token;
+        term2(result);
+        while (token == '*' || token == '/' || token == '%') {
+            char op = token;
             Value subresult = new Value();
             nextToken();
-            factor(subresult);
+            term2(subresult);
             result.setValue(arith(result.getValue(), op, subresult.getValue()));
         }
-        while (token == '*' || token == '/' || token == '%') {
+    }
+    
+    private void term2(Value result) throws InvalidNumberException, InvalidWordException
+    {
+        factor(result);
+        while (token == '^' || token == 'E') {
             char op = token;
             Value subresult = new Value();
             nextToken();
@@ -258,6 +264,8 @@ public class Parser
 
     private void factor(Value result) throws InvalidNumberException, InvalidWordException
     {
+    	
+        
         if (token == '(') {
             ++state;
             nextToken();
@@ -514,7 +522,7 @@ public class Parser
      */
     public static boolean isSpecialChar(char c)
     {
-    	return c == 'x' || c == 'y' || c == 'z' || c == 'p' || c == 'e';
+    	return c == 'x' || c == 'y' || c == 'z' || c == 'p' || c == 'e' || c == '.';
     }
 
 // ====================================================
