@@ -44,7 +44,7 @@ public class GUI extends JFrame implements ActionListener
 	/** The height of <code>info_panel</code> */
 	public static final int IFPANEL_HEIGHT = 75;
 	/** The height of <code>input_panel</code> */
-	public static final int IPANEL_HEIGHT = 100;
+	public static final int IPANEL_HEIGHT = 75;
 	/** The height of <code>button_panel</code> */
 	public static final int BPANEL_HEIGHT = 125;
 	/** The height of <code>result_panel</code> */
@@ -53,16 +53,25 @@ public class GUI extends JFrame implements ActionListener
 	public static final int BUTTON_WIDTH = 200;
 	/** The height of <code>eval_button</code> */
 	public static final int BUTTON_HEIGHT = 50;
+	/** The number of characters for instantiating the <code>f_input</code> JTextfield */
+	public static final int FINPUT_CHARS = 64;
+	/** The number of characters for instantiating the <code>x_input</code>, <code>y_input</code>, and
+	 * <code>z_input</code> JTextfields */
+	public static final int XINPUT_CHARS = 11;
 	
 	// initial strings and labels:
 	/** Initial function String to display in <code>f_input</code>: <code>"x^2"</code> */
 	public static final String INIT_FUNC = "x^2";
 	/** String to display in <code>f_label</code>: <code>" f(x) = "</code> */
-	public static final String FX_STR = " f(x) = ";
+	public static final String FX_STR = " f(x,y,z) = ";
 	/** Initial x-value String to display in <code>x_input</code>: <code>"0"</code> */
 	public static final String INIT_X = "0";
 	/** String to display in <code>x_label</code>: <code>" x : "</code> */
 	public static final String X_STR = " x : ";
+	/** String to display in <code>y_label</code>: <code>" y : "</code> */
+	public static final String Y_STR = " y : ";
+	/** String to display in <code>z_label</code>: <code>" z : "</code> */
+	public static final String Z_STR = " z : ";
 	/** String to display in <code>eval_button</code>: <code>"Evaluate"</code> */
 	public static final String BTN_TXT = "Evaluate";
 	/** Initial result String to display in <code>result_label</code>: <code>"0.0"</code> */
@@ -73,8 +82,12 @@ public class GUI extends JFrame implements ActionListener
 	public static final String INFO_1 = "p : pi,    e : euler's";
 	/** Third line of info for <code>info_panel</code>: Functions label */
 	public static final String INFO_2 = "Mathematical functions:";
-	/** Last line of info for <code>info_panel</code>: Functions references */
+	/** Fourth line of info for <code>info_panel</code>: Functions references */
 	public static final String INFO_3 = "sin, cos, tan, ln, abs, sqrt";
+	/** Fifth line of info for <code>info_panel</code>: How to use scientific notation (1.0E3) */
+	public static final String INFO_4 = "Scientific Notation:";
+	/** LAST line of info for <code>info_panel</code>: How to use scientific notation (1.0E3) */
+	public static final String INFO_5 = "use E like so: 1.0E3";
 	
 	// fonts:
 	/** Font for JLabels <code>info_label_1</code>, <code>info_label_3</code> */
@@ -103,6 +116,10 @@ public class GUI extends JFrame implements ActionListener
 	public static final Border F_BORDER = BorderFactory.createTitledBorder(I_BORDER_0,"Function", TitledBorder.LEFT, TitledBorder.TOP, ERR_FONT);
 	/** TitledBorder for <code>x_panel</code> */
 	public static final Border X_BORDER = BorderFactory.createTitledBorder(I_BORDER_0,"x-value", TitledBorder.LEFT, TitledBorder.TOP, ERR_FONT);
+	/** TitledBorder for <code>y_panel</code> */
+	public static final Border Y_BORDER = BorderFactory.createTitledBorder(I_BORDER_0,"y-value", TitledBorder.LEFT, TitledBorder.TOP, ERR_FONT);
+	/** TitledBorder for <code>z_panel</code> */
+	public static final Border Z_BORDER = BorderFactory.createTitledBorder(I_BORDER_0,"z-value", TitledBorder.LEFT, TitledBorder.TOP, ERR_FONT);
 	/** Template for titled border for <code>result_panel</code> */
 	public static final Border R_BORDER_0 = BorderFactory.createLineBorder(Color.BLACK, 2);
 	/** TitledBorder for <code>result_panel</code> */
@@ -123,32 +140,57 @@ public class GUI extends JFrame implements ActionListener
 	private JPanel info_panel;
 		/** Contains the JLabel <code>info_label[0:3]</code> */
 		private JPanel info_block;
-			/** Label for constants that can be used */
-			private JLabel info_label_0;
-			/** How to display <code>pi</code> and <code>e</code> constant */
-			private JLabel info_label_1;
-			/** Label for mathematical funcations that can be used */
-			private JLabel info_label_2;
-			/** How to use <code>sin</code>, <code>cos</code>, <code>tan</code>, 
-			 * <code>ln</code>, <code>abs</code>, <code>sqrt</code>. */
-			private JLabel info_label_3;
-	/** JPanel containing all input fields:<br> 
+			/** Label to hold constants info */
+			private JLabel info_01;
+				/** Label for constants that can be used */
+				private JLabel info_label_0;
+				/** How to display <code>pi</code> and <code>e</code> constant */
+				private JLabel info_label_1;
+			/** Label to hold functions info */
+			private JLabel info_23;
+				/** Label for mathematical funcations that can be used */
+				private JLabel info_label_2;
+				/** How to use <code>sin</code>, <code>cos</code>, <code>tan</code>, 
+				 * <code>ln</code>, <code>abs</code>, <code>sqrt</code>. */
+				private JLabel info_label_3;
+			/** Label to hold scientific notation info */
+			private JLabel info_45;
+				/** Scientific Notation label */
+				private JLabel info_label_4;
+				/** Displays how to use E for scientific notation*/
+				private JLabel info_label_5;
+	/** JPanel containing function input fields:<br> 
 	 * 	function label and textfield (<code>f_label</code>, <code>f_input</code>), 
-	 * 	x-value label and textfield (<code>x_label</code>, <code>x_input</code>).
 	 */
-	private JPanel input_panel;
+	private JPanel input_panel_1;
 		/** Displays <code>f(x) =</code> in front of the function input JTextfield, <code>f_input</code>*/
 		private JLabel f_label;
 		/** Contains the JTextField <code>f_input</code> */
 		private JPanel f_panel;
 			/** Input field for the function String to be parsed */
 			private JTextField f_input; 
-		/** Displays <code>x :</code> in front of the function input JTextfield, <code>x_input</code>*/
+	/**	JPanel containing all input fields for variables
+	 * 	x-value label and textfield (<code>x_label</code>, <code>x_input</code>). 
+	 * */
+	private JPanel input_panel_2;	
+		/** Displays <code>x :</code> in front of the input JTextfield, <code>x_input</code>*/
 		private JLabel x_label;
-		/** Contains the JTextField <code>f_input</code> */
+		/** Contains the JTextField <code>x_input</code> */
 		private JPanel x_panel;
-			/** Input field for the function String to be parsed */
+			/** Input field for the x variable */
 			private JTextField x_input;
+		/** Displays <code>y :</code> in front of the input JTextfield, <code>y_input</code>*/
+		private JLabel y_label;
+		/** Contains the JTextField <code>y_input</code> */
+		private JPanel y_panel;
+			/** Input field for the y variable */
+			private JTextField y_input;
+		/** Displays <code>z :</code> in front of the input JTextfield, <code>z_input</code>*/
+		private JLabel z_label;
+		/** Contains the JTextField <code>z_input</code> */
+		private JPanel z_panel;
+			/** Input field for the z-variable */
+			private JTextField z_input;
 	/** Contians the JButton <code>eval_button</code> */
 	private JPanel button_panel;
 		/** JButton to begin parsing the function String from <code>f_input</code> 
@@ -167,7 +209,7 @@ public class GUI extends JFrame implements ActionListener
 		super();
 		setTitle("Mike's Calculator");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setPreferredSize(new Dimension(WIDTH, IFPANEL_HEIGHT + IPANEL_HEIGHT + BPANEL_HEIGHT + RPANEL_HEIGHT));
+		setPreferredSize(new Dimension(WIDTH, IFPANEL_HEIGHT + IPANEL_HEIGHT*2 + BPANEL_HEIGHT + RPANEL_HEIGHT));
 		setResizable(false);
 		
 		contentPane = getContentPane();
@@ -177,24 +219,41 @@ public class GUI extends JFrame implements ActionListener
 		info_panel.setLayout(new FlowLayout());
 			info_block = new JPanel();
 			// GridLayout seems to fill the full frame, no matter what I try to do...
-			info_block.setLayout(new GridLayout(4,1));
+			info_block.setLayout(new GridLayout(3,1));
+			info_01 = new JLabel();
+			info_01.setLayout(new FlowLayout());
 				info_label_0 = new JLabel(INFO_0);
 				info_label_0.setFont(INF_FONT_B);
 				info_label_0.setHorizontalAlignment(SwingConstants.CENTER);
 				info_label_1 = new JLabel(INFO_1);
 				info_label_1.setFont(INF_FONT_0);
 				info_label_1.setHorizontalAlignment(SwingConstants.CENTER);
+			info_01.add(info_label_0);
+			info_01.add(info_label_1);
+			info_23 = new JLabel();
+			info_23.setLayout(new FlowLayout());
 				info_label_2 = new JLabel(INFO_2);
 				info_label_2.setFont(INF_FONT_B);
 				info_label_2.setHorizontalAlignment(SwingConstants.CENTER);
 				info_label_3 = new JLabel(INFO_3);
 				info_label_3.setFont(INF_FONT_0);
 				info_label_3.setHorizontalAlignment(SwingConstants.CENTER);
-			info_block.add(info_label_0);
-			info_block.add(info_label_1);
-			info_block.add(info_label_2);
-			info_block.add(info_label_3);
-			info_block.setPreferredSize(new Dimension((int)(WIDTH/2), (int)(IFPANEL_HEIGHT/1.5)));
+			info_23.add(info_label_2);
+			info_23.add(info_label_3);
+			info_45 = new JLabel();
+			info_45.setLayout(new FlowLayout());
+				info_label_4 = new JLabel(INFO_4);
+				info_label_4.setFont(INF_FONT_B);
+				info_label_4.setHorizontalAlignment(SwingConstants.CENTER);
+				info_label_5 = new JLabel(INFO_5);
+				info_label_5.setFont(INF_FONT_0);
+				info_label_5.setHorizontalAlignment(SwingConstants.CENTER);
+			info_45.add(info_label_4);
+			info_45.add(info_label_5);
+			info_block.add(info_01);
+			info_block.add(info_23);
+			info_block.add(info_45);
+			info_block.setPreferredSize(new Dimension((int)(WIDTH/1.5), (int)(IFPANEL_HEIGHT/1.5)));
 		info_panel.add(info_block);
 		info_panel.setBorder(IF_BORDER);
 		info_panel.setPreferredSize(new Dimension((int)(WIDTH/1.25), IFPANEL_HEIGHT));
@@ -203,7 +262,7 @@ public class GUI extends JFrame implements ActionListener
 		// function input
 		f_panel = new JPanel();
 		f_panel.setLayout(new FlowLayout());
-			f_input = new JTextField("x^2", 40);
+			f_input = new JTextField("x^2", FINPUT_CHARS);
 			f_input.setFont(TXT_FONT);
 			f_label = new JLabel(FX_STR);
 			f_label.setFont(LBL_FONT);
@@ -213,18 +272,42 @@ public class GUI extends JFrame implements ActionListener
 		// xvalue input
 		x_panel = new JPanel();
 		x_panel.setLayout(new FlowLayout());
-			x_input = new JTextField("0", 10);
+			x_input = new JTextField("0", XINPUT_CHARS);
 			x_label = new JLabel(X_STR);
 			x_label.setFont(LBL_FONT);
 		x_panel.add(x_label);
 		x_panel.add(x_input);
 		x_panel.setBorder(X_BORDER);
-		// input panel
-		input_panel = new JPanel();
-		input_panel.setLayout(new FlowLayout());
-		input_panel.add(f_panel);
-		input_panel.add(x_panel);
-		input_panel.setPreferredSize(new Dimension(WIDTH, IPANEL_HEIGHT));
+		// yvalue input
+		y_panel = new JPanel();
+		y_panel.setLayout(new FlowLayout());
+			y_input = new JTextField("0", XINPUT_CHARS);
+			y_label = new JLabel(Y_STR);
+			y_label.setFont(LBL_FONT);
+		y_panel.add(y_label);
+		y_panel.add(y_input);
+		y_panel.setBorder(Y_BORDER);
+		// zvalue input
+		z_panel = new JPanel();
+		z_panel.setLayout(new FlowLayout());
+			z_input = new JTextField("0", XINPUT_CHARS);
+			z_label = new JLabel(Z_STR);
+			z_label.setFont(LBL_FONT);
+		z_panel.add(z_label);
+		z_panel.add(z_input);
+		z_panel.setBorder(Z_BORDER);
+		// input panel 1: function input
+		input_panel_1 = new JPanel();
+		input_panel_1.setLayout(new FlowLayout());
+		input_panel_1.add(f_panel);
+		input_panel_1.setPreferredSize(new Dimension(WIDTH, IPANEL_HEIGHT));
+		// input panel 2: variable value input
+		input_panel_2 = new JPanel();
+		input_panel_2.setLayout(new FlowLayout());
+		input_panel_2.add(x_panel);
+		input_panel_2.add(y_panel);
+		input_panel_2.add(z_panel);
+		input_panel_2.setPreferredSize(new Dimension(WIDTH, IPANEL_HEIGHT));
 		
 	// button panel:
 		button_panel = new JPanel();
@@ -249,9 +332,10 @@ public class GUI extends JFrame implements ActionListener
 		
 		
 	// contentPane:
-		contentPane.setLayout(new GridLayout(4,1));
+		contentPane.setLayout(new GridLayout(5,1));
 		contentPane.add(info_panel);
-		contentPane.add(input_panel);
+		contentPane.add(input_panel_1);
+		contentPane.add(input_panel_2);
 		contentPane.add(button_panel);
 		contentPane.add(result_panel);
 		
@@ -275,7 +359,9 @@ public class GUI extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent ev)
 	{
 		if (ev.getSource() == eval_button) {
-			Parser p = new Parser(f_input.getText(), Double.parseDouble(x_input.getText()));
+			Parser p = new Parser(f_input.getText(), 	Double.parseDouble(x_input.getText()),
+														Double.parseDouble(y_input.getText()),
+														Double.parseDouble(z_input.getText()));
 			try {
 				result_label.setText("Parsing...");
 				result = setResultStr(p.evaluate());
