@@ -9,3 +9,11 @@ Directories:
 	-embedded_linux: 	street lane recognition using OpenCV
 
 -calculator:		Java-based scientific parsing calculator
+
+-satellites:		contains code for a satellite-launch simulator
+			note: does not contain all the necessary code (LWJGL stuff, etc)
+
+-siggimus:		contains runnable files for versions of Siggimus as I make them.
+			Siggimus is a simple game based on making lines and destroying shapes
+
+-rpg:			contains runnable files for versions of a simple rpg as I make them.
