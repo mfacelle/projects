@@ -13,15 +13,25 @@ import parser.exceptions.*;
  *  </pre></code>
  *  <br><br>
  *  A term1 and term2 are used so that order-of-operations is done correctly
- *  according to PEMDAS
+ *  according to PEMDAS. (term2 has a higher priority than term1)<br>
+ *  <br>
+ *  Version 3.0 fixes issues with parentheses, expressions, and functions:<br>
+ *  - (fixed)When using a function, the rest of the string was evaluated as though it were all inside the parentheses.<br>
+ *  - (ongoing as of 5/27/14)End parentheses by themselves are not read.  A user can input (1+2))))) and it will read as (1+2)<br>
+ *  <br>
+ *  Version 3.1 fixes issues with functions and adds Avogadro's Number as a constant ('a').<br>
+ *  - (fixed)functions do not read end parentheses, and thus anything after the function is meaningless
  *  
  *  @author Mike Facelle
- *  @date 1/28/14
- *  @version 2.1
+ *  @date 4/11/14
+ *  @version 3.1
  *  
  */
 public class Parser
 {
+	/** Avogadro's number */
+	public static final float AVOGADRO = 6.022E+23f;
+	
 	/** The String to be parsed */
     private String function;	
     /** the current index of the String being evaluated */
@@ -36,6 +46,8 @@ public class Parser
     private double z;
     /** the amount of parentheses. if state = 0, then number of <code>'('</code> = <code>')'</code> */
     private int state;			 
+    /** To fix bugs, added to determine if "inside" a function or not (like sin, cos) */
+    private int inFunction;
     
     /** Initializes a parser with no parameters.
      *  <br>Sets <code>function</code> to <code>"x"</code>.
@@ -43,12 +55,18 @@ public class Parser
      */
     public Parser()
     {
-    	function = "x";
-    	index = 0;
-    	state = 0;
-    	x = 0.0;
-    	y = 0.0;
-    	z = 0.0;
+    	this("x");
+    }
+    /** Initializes a parser with the specified function and no specified x value.
+     *  Sets the value of x to 0.<br>
+     *  The x value can be set using setXVal().
+     *  
+     * @param initFunction
+     * 			The String to be evaluated as a mathematical expression.
+     */
+    public Parser(String initFunction)
+    {
+    	this(initFunction, 0, 0, 0);
     }
     /** Initializes a parser with the specified function and x value
      * 
@@ -65,23 +83,9 @@ public class Parser
     	z = zVal;
     	index = 0;
     	state = 0;
+    	inFunction = 0;
     }   
-    /** Initializes a parser with the specified function and no specified x value.
-     *  Sets the value of x to 0.<br>
-     *  The x value can be set using setXVal().
-     *  
-     * @param initFunction
-     * 			The String to be evaluated as a mathematical expression.
-     */
-    public Parser(String initFunction)
-    {
-    	function = initFunction;
-    	x = 0.0;
-    	y = 0.0;
-    	z = 0.0;
-    	index = 0;
-    	state = 0;
-    }
+
     
 // ====================================================
 // evaluate    
@@ -110,15 +114,16 @@ public class Parser
             nextToken(); // check first element
             try {                
                 expression(result);
-                if (state > 0)  // if parentheses unbalanced
+                if (state != 0)  // if parentheses unbalanced
                     throw new UnbalancedParenthesesException();
                 break;
             }
             catch (UnbalancedParenthesesException ex) {
                 //System.out.println(ex.getMessage());
                 //ex.printStackTrace();
-                for (int i = state; i > 0; i--)
-                    setFunction(function + ")");
+            	if (state > 0)
+	                for (int i = state; i > 0; i--)
+	                    setFunction(function + ")");
                 // returns to caller. catching this exception should involve a new call to evaluate() from caller
                 throw new InvalidParseException(ex.getMessage());               
             }
@@ -222,7 +227,7 @@ public class Parser
  // ====================================================
  // for actual parsing
     
-    private void expression(Value result) throws InvalidNumberException, InvalidWordException
+    private void expression(Value result) throws UnbalancedParenthesesException, InvalidParseException, InvalidNumberException, InvalidWordException
     {
         term1(result);
         while (token == '+' || token == '-') {
@@ -236,7 +241,7 @@ public class Parser
     
     // --------------------------------
 
-    private void term1(Value result) throws InvalidNumberException, InvalidWordException
+    private void term1(Value result) throws UnbalancedParenthesesException, InvalidParseException, InvalidNumberException, InvalidWordException
     {
         term2(result);
         while (token == '*' || token == '/' || token == '%') {
@@ -248,7 +253,7 @@ public class Parser
         }
     }
     
-    private void term2(Value result) throws InvalidNumberException, InvalidWordException
+    private void term2(Value result) throws UnbalancedParenthesesException, InvalidParseException, InvalidNumberException, InvalidWordException
     {
         factor(result);
         while (token == '^' || token == 'E') {
@@ -262,17 +267,17 @@ public class Parser
     
     // --------------------------------
 
-    private void factor(Value result) throws InvalidNumberException, InvalidWordException
+    private void factor(Value result) throws UnbalancedParenthesesException, InvalidParseException, InvalidNumberException, InvalidWordException
     {
-    	
-        
         if (token == '(') {
             ++state;
             nextToken();
             expression(result);
-            if (token == ')')
-                --state;
+        	if (token == ')')
+	        	--state;
         }
+        else if (token == ')')	// never actually gets called...
+        	--state;
         else if (token == '-') {
             Value subresult = new Value();
             nextToken();
@@ -310,9 +315,11 @@ public class Parser
         double decimal = 0;
         int power = 1;  			// for calculating decimal powers to multiply by (1/10, 1/100, etc)
         boolean integers = true;	// whether or not the number is calculating integer or decimal places
+        // how many of each variable have been found (for shorthand: 2*x^2*y = 2xxy)
         int hasX = 0, hasY = 0, hasZ = 0;
-        int hasPi = 0;
-        int hasE = 0;
+        int hasPi = 0;	// pi
+        int hasE = 0;	// euler's constant
+        int hasA = 0;	// avogadro's number
         
         while ((token >= '0' && token <= '9') || isSpecialChar(token))
         {   
@@ -330,7 +337,7 @@ public class Parser
             }
             else if (!integers && !isSpecialChar(token)) {
             	// numbers cannot follow a variable/constant:
-            	if (hasX > 0 || hasPi > 0 || hasE > 0)
+            	if (hasX > 0 || hasY > 0 || hasZ > 0 || hasPi > 0 || hasE > 0)
             		throw new InvalidNumberException();
                 // calculates decimal portion
                 decimal = decimal + ((token - '0') * (1 / Math.pow(10, power++)));
@@ -345,13 +352,13 @@ public class Parser
                 hasPi++;
             else if (token == 'e')
                 hasE++;
+            else if (token == 'a')
+            	hasA++;
             else
                 throw new InvalidNumberException();
                         	
             nextToken();
         }
-        
-        --index; //so call of nextToken() in factor() will return the current token
         
         result.setValue(integer + decimal);
         
@@ -371,16 +378,24 @@ public class Parser
                 result.setValue(1); // so a number with no 0-9 digits wont always be 0
             result.setValue(result.getValue() * z);
         }
-        for (int j = hasPi; j > 0; j--) {
+        for (int i = hasPi; i > 0; i--) {
             if (result.getValue() == 0)
                 result.setValue(1); // so a number with no 0-9 digits wont always be 0
             result.setValue(result.getValue() * Math.PI);
         }
-        for (int k = hasE; k > 0; k--) {
+        for (int i = hasE; i > 0; i--) {
             if (result.getValue() == 0)
                 result.setValue(1); // so a number with no 0-9 digits wont always be 0
             result.setValue(result.getValue() * Math.E);
         }
+        for (int i = hasA; i > 0; i--) {
+            if (result.getValue() == 0)
+                result.setValue(1); // so a number with no 0-9 digits wont always be 0
+            result.setValue(result.getValue() * AVOGADRO);
+        }
+        
+        --index; //so call of nextToken() in factor() will return the current token
+        //nextToken();
     }
     
     // --------------------------------
@@ -395,82 +410,91 @@ public class Parser
      * 		abs	 : absolute value<br>
      * 		sqrt : square root<br>
      * </pre></code>
+     * <br><br>
+     * <i>There's probably a more efficient way than handling these as all char[]...</i>
+     * <br><br>
+     * 	This method reads the word entered, and if it's valid it takes the substring of
+     * 	chars between the parentheses and evaluates them.  This prevents the bug where
+     *  everything after this function became evaluated as the argument (due to the nature of
+     *  expression()).<br>
      * 
      * @param result
      * 			The current value of the function at the x specified in this class.
      * 
+     * @throws UnbalancedParenthesesException
+     * 			When there is no closing ')' found for the function.
+     *			For example: <code>sin(2+3</code> instead of <code>sin(2+3)</code>
      * @throws InvalidWordException
      * 			When the word being parsed is not a valid parsing word.<br>
      * 			For example: <code>"sim"</code> instead of <code>"sin"</code>.
      * @throws InvalidNumberException
      * 			Can be thrown after parsing the argument of a word, if the argument contains a number
      * 			with an invalid digit or character.
+     * @throws InvalidParseException
+     * 			Thrown if the argument to the function is an invalid function string
      * 
      * @return Void, because it uses setValue() to set the value in result rather than passing back
      * 			a returned value.
      */
-    private void read(Value result) throws InvalidWordException, InvalidNumberException //invalid number from call of expression()
+    private void read(Value result) throws UnbalancedParenthesesException, InvalidWordException, InvalidNumberException, InvalidParseException //invalid number from call of expression()
     {
-        char func[] = new char[8];  // 8-char max for a word
-        // initialize to all '#', a non-letter
-        for (int i = 0; i < func.length; i++)
-            func[i] = '#';
+    	// get the word
+        StringBuffer func = new StringBuffer("");  // to hold the word      
+        for (int i = 0; isLetter(token) && i < function.length(); i++, nextToken())
+            func.append(token);
         
-        // store typed letters in array
-        for (int i = 0; isLetter(token) && i < func.length; i++, nextToken())
-            func[i] = token;
+        // evaluate the argument substring, regardless of if it's a valid function yet
+        // don't have to rewrite it under each if statement that way
+        // it'll take more time if it's invalid, but it throws an error if invalid anyway,
+        // so the extra time won't mean much since it fails.
+        //nextToken();	// consume the first '(', this is the current token
+        int argStartIndex = index;
+        int argEndIndex = 0;		
+        // find when the argument string ends (the ')' char), ignoe
+        // for parentheses inside the argument
+        for (int i = 0, state = 0; !(token == ')' && state == 0); i++, nextToken()) {
+        	// infinite loops can occur here, when no closing ')' is added. prevent that with:
+        	if (i + argStartIndex >= function.length())	// if end of function string reached without parentheses found
+        		throw new UnbalancedParenthesesException("No closing parentheses for function " + func);
+        	if (token == '(' && i != 0)
+        		state++;
+        	else if (token == ')' && state > 0)
+        		state--;
+        }
+        argEndIndex = index-1;
         
-        --index; //so call of nextToken() will return the current token
+        String argument = function.substring(argStartIndex, argEndIndex);
+                
+        Value subresult = new Value();
+        try {
+        	subresult.setValue(evaluate(argument, x, y, z));
+        }
+        catch (InvalidParseException ex) {
+        	throw new InvalidParseException("Argument [" + argument + "] to function " + func + " could not be parsed");
+        }
         
         // check array to see if it matches known function:
         // sin
-        if (func[0] == 's' && func[1] == 'i' && func[2] == 'n' && func[3] == '#') {
-            Value subresult = new Value();
-            nextToken();
-            expression(subresult);
+        if (func.indexOf("sin") != -1)
             result.setValue(Math.sin(subresult.getValue()));
-        }
         // cos
-        else if (func[0] == 'c' && func[1] == 'o' && func[2] == 's' && func[3] == '#') {
-            Value subresult = new Value();
-            nextToken();
-            expression(subresult);
+        else if (func.indexOf("cos") != -1)
             result.setValue(Math.cos(subresult.getValue()));
-        }
         // tan
-        else if (func[0] == 't' && func[1] == 'a' && func[2] == 'n' && func[3] == '#') {
-            Value subresult = new Value();
-            nextToken();
-            expression(subresult);
+        else if (func.indexOf("tan") != -1)
             result.setValue(Math.tan(subresult.getValue()));
-        }
         // ln
-        else if (func[0] == 'l' && func[1] == 'n' && func[2] == '#') {
-            Value subresult = new Value();
-            nextToken();
-            expression(subresult);
+        else if (func.indexOf("ln") != -1)
             result.setValue(Math.log(subresult.getValue()));
-        }
         // abs value
-        else if (func[0] == 'a' && func[1] == 'b' && func[2] == 's' && func[3] == '#') {
-            Value subresult = new Value();
-            nextToken();
-            expression(subresult);
+        else if (func.indexOf("abs") != -1)
             result.setValue(Math.abs(subresult.getValue()));
-        }
         // square root
-        else if (func[0] == 's' && func[1] == 'q' && func[2] == 'r' && func[3] == 't' && func[4] == '#') {
-            Value subresult = new Value();
-            nextToken();
-            expression(subresult);
+        else if (func.indexOf("sqrt") != -1)
             // if value under radical is negative, it returns "NaN", so no exception needed
             result.setValue(Math.sqrt(subresult.getValue()));
-        }
         else
-            throw new InvalidWordException();
-        
-        index--; // so call of nextToken() will get current token (should be a closing ')')
-        
+            throw new InvalidWordException();        
     }
     
     
@@ -517,12 +541,12 @@ public class Parser
      * 	They are not used in any mathematical functions.
      * <br>
      * 	These are: <code>'x'</code>, <code>'y'</code>, <code>'z'</code>, 
-     * 	<code>'p'</code>, and <code>'e'</code>
+     * 	<code>'p'</code>, <code>'e'</code>, and <code>'a'</code>
      * @return whether of not the token passed is a special character.
      */
     public static boolean isSpecialChar(char c)
     {
-    	return c == 'x' || c == 'y' || c == 'z' || c == 'p' || c == 'e' || c == '.';
+    	return c == 'x' || c == 'y' || c == 'z' || c == 'p' || c == 'e' || c == 'a' || c == '.';
     }
 
 // ====================================================

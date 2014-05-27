@@ -79,7 +79,7 @@ public class GUI extends JFrame implements ActionListener
 	/** First line of info for <code>info_panel</code>: Constants label */
 	public static final String INFO_0 = "Constants:";
 	/** Second line of info for <code>info_panel</code>: Constants references */
-	public static final String INFO_1 = "p : pi,    e : euler's";
+	public static final String INFO_1 = "p : pi,    e : euler's,	a : avogadro's";
 	/** Third line of info for <code>info_panel</code>: Functions label */
 	public static final String INFO_2 = "Mathematical functions:";
 	/** Fourth line of info for <code>info_panel</code>: Functions references */
