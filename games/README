@@ -5,11 +5,13 @@ MF Games
 These are games I have created or am currently working on, for iOS and Android devices.
 Current contents:
 
-Completed Games (Java):
-Siggimus
+Completed Games:
 
-Completed games (Unity):
+(Unity)
 Annihilation
+
+(Java with LWJGL)
+Siggimus
 
 Works in progress (Unity):
 The Mazeling
