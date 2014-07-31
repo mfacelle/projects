@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+	<ProductVersion>10.0.20506</ProductVersion>
+	<SchemaVersion>2.0</SchemaVersion>
+	<ProjectGuid>{1BE7B359-A06E-822D-EC16-9C9E1400E4CC}</ProjectGuid>
+	<OutputType>Library</OutputType>
+	<AppDesignerFolder>Properties</AppDesignerFolder>
+	<RootNamespace></RootNamespace>
+	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+	<FileAlignment>512</FileAlignment>
+	<BaseDirectory>Assets</BaseDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+	<DebugSymbols>true</DebugSymbols>
+	<DebugType>full</DebugType>
+	<Optimize>false</Optimize>
+	<OutputPath>Temp\bin\Debug\</OutputPath>
+	<DefineConstants>DEBUG;TRACE;UNITY_4_5_0;UNITY_4_5;UNITY_IPHONE;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_WWW;ENABLE_IMAGEEFFECTS;UNITY_IPHONE_API;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_GAMECENTER;UNITY_IOS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_OSX</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+	<DebugType>pdbonly</DebugType>
+	<Optimize>true</Optimize>
+	<OutputPath>Temp\bin\Release\</OutputPath>
+	<DefineConstants>TRACE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+	<Reference Include="System" />
+    <Reference Include="System.XML" />
+	<Reference Include="System.Core" />
+	<Reference Include="System.Xml.Linq" />
+	<Reference Include="UnityEngine">
+	  <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEngine.dll</HintPath>
+	</Reference>
+	<Reference Include="UnityEditor">
+	  <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+  <ItemGroup>
+     <Compile Include="Assets\scripts\CameraFixer.cs" />
+     <Compile Include="Assets\scripts\MultiTouchManager.cs" />
+     <Compile Include="Assets\scripts\Player.cs" />
+     <Compile Include="Assets\scripts\ScoreManager.cs" />
+     <Compile Include="Assets\scripts\Spawner.cs" />
+     <Compile Include="Assets\scripts\buttons\BackButton.cs" />
+     <Compile Include="Assets\scripts\buttons\Button.cs" />
+     <Compile Include="Assets\scripts\buttons\InstructionButton.cs" />
+     <Compile Include="Assets\scripts\buttons\Instructions.cs" />
+     <Compile Include="Assets\scripts\buttons\NextButton.cs" />
+     <Compile Include="Assets\scripts\buttons\QuitButton.cs" />
+     <Compile Include="Assets\scripts\buttons\RestartButon.cs" />
+     <Compile Include="Assets\scripts\buttons\StartButton.cs" />
+     <Compile Include="Assets\scripts\buttons\ToTitleButton.cs" />
+     <Compile Include="Assets\scripts\gui\ButtonSizes.cs" />
+     <Compile Include="Assets\scripts\gui\Credits_GUI.cs" />
+     <Compile Include="Assets\scripts\gui\EasyHighScoreDisplay.cs" />
+     <Compile Include="Assets\scripts\gui\EasyModeDisplay.cs" />
+     <Compile Include="Assets\scripts\gui\EndGame_GUI.cs" />
+     <Compile Include="Assets\scripts\gui\HardHighScoreDisplay.cs" />
+     <Compile Include="Assets\scripts\gui\HighScoreDisplay.cs" />
+     <Compile Include="Assets\scripts\gui\HighScores_GUI.cs" />
+     <Compile Include="Assets\scripts\gui\Instructions_GUI.cs" />
+     <Compile Include="Assets\scripts\gui\MusicOnOffText.cs" />
+     <Compile Include="Assets\scripts\gui\Options_GUI.cs" />
+     <Compile Include="Assets\scripts\gui\ScoreDisplay.cs" />
+     <Compile Include="Assets\scripts\gui\TitleScene_GUI.cs" />
+     <Compile Include="Assets\scripts\gui\TouchDisplay.cs" />
+     <Compile Include="Assets\scripts\particles\Annihilation.cs" />
+     <Compile Include="Assets\scripts\particles\AntiParticle.cs" />
+     <Compile Include="Assets\scripts\particles\DarkParticle.cs" />
+     <Compile Include="Assets\scripts\particles\LightParticle.cs" />
+     <Compile Include="Assets\scripts\particles\MiniParticle.cs" />
+     <Compile Include="Assets\scripts\particles\NormParticle.cs" />
+     <Compile Include="Assets\scripts\particles\Particle.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+	   Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  
+</Project>
