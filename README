@@ -1,5 +1,6 @@
 Projects
 Mike Facelle
+7/31/14
 
 Directories:
 -completed_files:	contains completed, executable project files
@@ -13,7 +14,6 @@ Directories:
 -satellites:		contains code for a satellite-launch simulator
 			note: does not contain all the necessary code (LWJGL stuff, etc)
 
--siggimus:		contains runnable files for versions of Siggimus as I make them.
-			Siggimus is a simple game based on making lines and destroying shapes
+-games:			contains files for games developed either with Unity or Java/Eclipse
 
--rpg:			contains runnable files for versions of a simple rpg as I make them.
+
