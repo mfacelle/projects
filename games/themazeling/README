@@ -7,9 +7,20 @@ The Mazeling is a game where players must navigate through a maze, collecting th
 Will be released on iOS, and possibly Android (in the future).
 
 Current status:
-Phase_0 [graphics/level build] still very incomplete
-Phase_1 [movement/basic gameplay] design completed, still untested on hardware.
-Phase_2 [title scene/save-load mechanics] not started
-Phase_3 [deeper gameplay/key-lock system] not started
-Phase_4 [deeper menu/options] not started
-Phase_5 [music/sfx] not started
+Phase_0 [graphics/maze build] 
+still very incomplete (some maze completed, no graphics)
+
+Phase_1 [movement/basic gameplay] 
+design completed, still untested on hardware.
+
+Phase_2 [title scene/save-load mechanics] 
+not started
+
+Phase_3 [deeper gameplay/key-lock system] 
+not started
+
+Phase_4 [deeper menu/options] 
+not started
+
+Phase_5 [music/sfx] 
+not started
