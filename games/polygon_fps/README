@@ -1,0 +1,46 @@
+Polygon FPS (needs an actual title...)
+Mike Facelle
+8/23/14
+
+
+A 3D first-person shooter, using crappy polygonal models I am making.
+Currently has no plot or story... really needs one by the time phase 8 is done
+
+
+Side Phase - textures and models
+some basic weapons completed (may need to update pending plot/theme)
+no textures yet
+no enemies yet
+
+Phase 0.5 - Movement GUI
+graphic completed, working on mechanics
+
+Phase 1 - Base Gameplay (movement)
+accelerometer looking completed (may need sensitivity tweaking)
+map_0 for testing completed (may need rendering tweaking due to graphics limits)
+firing projectiles completed
+movement GUI in progress
+
+Phase 2 - Basic Gameplay (enemies/weapons)
+weapon swap completed, no swapping anims (intended for a later build)
+enemy class not complete
+
+Phase 3 - Spawners (weapon/enemy)
+not started
+
+Phase 4 - Title and GUI (full onscreen info)
+not started
+
+Phase 5 - Pause Menu
+not started
+
+Phase 6 - Basic Enemy AI
+not started
+
+Phase 7 - Wave Mechanics (gameplay)
+not started
+
+Phase 8 - Death Screen
+not started
+
+...many more phases to come, not yet planned out
