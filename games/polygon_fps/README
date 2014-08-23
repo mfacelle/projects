@@ -7,40 +7,47 @@ A 3D first-person shooter, using crappy polygonal models I am making.
 Currently has no plot or story... really needs one by the time phase 8 is done
 
 
-Side Phase - textures and models
-some basic weapons completed (may need to update pending plot/theme)
+Side Phase - textures and models (will probably change as plot/theme developed)
+some basic weapons completed
 no textures yet
-no enemies yet
+no enemy models yet
 
 Phase 0.5 - Movement GUI
 graphic completed, working on mechanics
 
 Phase 1 - Base Gameplay (movement)
 accelerometer looking completed (may need sensitivity tweaking)
-map_0 for testing completed (may need rendering tweaking due to graphics limits)
-firing projectiles completed
+map_0 for testing completed (may need rendering tweaking due to graphics limitations)
+firing projectiles completed (from test project)
 movement GUI in progress
 
 Phase 2 - Basic Gameplay (enemies/weapons)
-weapon swap completed, no swapping anims (intended for a later build)
+weapon swap completed (from test project), no swapping anims (intended for a later build)
 enemy class not complete
 
 Phase 3 - Spawners (weapon/enemy)
-not started
+no weapon spawner objects
+no mob spawner objects
+no game mechanics that periodically spawn monsters/weapons
 
 Phase 4 - Title and GUI (full onscreen info)
-not started
+no title screen
+no in-game GUI (health bar, points, weapon/ammo display, weapon swap buttons)
+player needs HP, points parameters
 
 Phase 5 - Pause Menu
-not started
+no pause menu
+game needs OnGUI pause button (maybe not OnGUI(), could handle in MultiTouchManager)
 
 Phase 6 - Basic Enemy AI
-not started
+no models, or enemy AI
 
 Phase 7 - Wave Mechanics (gameplay)
-not started
+player needs wave number parameter
+wave mechanics not designed yet (increasing spawn frequency and amount of enemies)
 
 Phase 8 - Death Screen
-not started
+no death screen yet (display score, give options to replay or return to menu, choose new map, quit, etc)
+
 
 ...many more phases to come, not yet planned out
