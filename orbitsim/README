@@ -1,0 +1,10 @@
+Orbit Sim
+Mike Facelle
+8/28/14
+
+This is a project that simulates a planetary orbit in time, in C++, and then renders the orbit simulation in Java, using LWJGL.
+A data file is used to share location and time data between the languages.
+
+However, the simulation is not currently accurate.  The planet orbit is not rendered in time properly.  This is probably due to the numerical methods I am using (I suspect the starting value for the iterative procedure is the problem).  I will continue working on this project, since I am now taking a Numerical Methods course.
+
+Note: This project folder may not contain all required Java libraries.  I will upload a runnable .jar in the near future, but I must deal with filepath stuff first.
