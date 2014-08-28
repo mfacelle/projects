@@ -14,6 +14,12 @@ Directories:
 -satellites:		contains code for a satellite-launch simulator
 			note: does not contain all the necessary code (LWJGL stuff, etc)
 
--games:			contains files for games developed either with Unity or Java/Eclipse
+-orbitsim:		contains code for a C++ orbit simulation, and Java-LWJGL renderer
+			note: may be missing some required java libraries
 
+-games:			contains files for games developed either with Unity or Java/Eclipse
+			- Annihilation
+			- Siggimus
+			- Polygon FPS
+			- The Mazeling
 
