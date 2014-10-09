@@ -1,10 +1,16 @@
 Orbit Sim
 Mike Facelle
-8/28/14
+10/9/14
 
-This is a project that simulates a planetary orbit in time, in C++, and then renders the orbit simulation in Java, using LWJGL.
-A data file is used to share location and time data between the languages.
+TO RUN:
+Run the orbitsim/run file in the command line.  This will compile the C++ files, run them, and then it will run orbitsim.jar.
 
-However, the simulation is not currently accurate.  The planet orbit is not rendered in time properly.  This is probably due to the numerical methods I am using (I suspect the starting value for the iterative procedure is the problem).  I will continue working on this project, since I am now taking a Numerical Methods course.
+Orbitsim is a program that will simulate a single planet's orbit, accurately in time, around a host star, in C++.  It will then plot the resulting orbit, in Java, using LWJGL.  The two languages communicate via a file called orbitsim.dat.
+Yes, it would be faster and more efficient to do all this in just one language (because outputting/inputting a file takes quite a bit of time), but I wanted to try a project in multiple languages that can be run using a single script.
 
-Note: This project folder may not contain all required Java libraries.  I will upload a runnable .jar in the near future, but I must deal with filepath stuff first.
+However, this simulation is not totally accurate.  The orbit is plotted, but it seems to move incorrectly at times.  This is probably due to the numerical methods I am using.  I believe it has to do with my starting value for the iterative method; it seems like it doesn't quite converge to the right value.
+I will keep working on this, as I am taking Numerical Methods currently.
+
+NOTE:
+The Java files provided in java_src/ are not all that is required to run the program.  orbitsim.jar will execute, but it has libraries and other classes that are needed.  My custom LWJGL-based classes as well as the built-in LWJGL classes and libraries are not included in this project folder.
+I have only included the relevant Java files related to loading and plotting the data. 
