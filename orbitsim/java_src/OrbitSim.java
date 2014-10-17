@@ -29,6 +29,7 @@ import common.engine.Game;
 
 import static solar_system.Conversions.R_SUN;
 import static solar_system.Conversions.R_EARTH;
+import static solar_system.Conversions.AU;
 
 /** OrbitSim is a class that displays a simulation of a planetary orbit.<br>
  * <b>SHOULD BE REDONE WITH BETTER PHYSICS / UI STUFF!!!!</b><br>
@@ -116,7 +117,7 @@ public class OrbitSim implements Game
 	private Viewpoint camera;
 	private LWJGLTimer timer;
 	/** Font size to be used */
-	private static final int FONT_SIZE = 12;
+	private static final int FONT_SIZE = 14;
 	private MyText_Bitmap mytext;
 	
 	private MySphere star;
@@ -173,11 +174,17 @@ public class OrbitSim implements Game
 		initializeViewpoint();
 		initializeObjects();
 		
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+		// SHOULD STILL DO THIS!! (but not exactly the same, since user will have JUST entered params themself)
+		// also print Rmin, Rmax (in AU and m) on the display to give users a sense of scale
+		
 //		System.out.println("SIMULATION PARAMETERS:");
 //		System.out.println("a="+a + "\tecc="+ecc + "\tm="+hostmass + "\tT="+period);
 //		System.out.println("d="+d + "\tPPM="+PPM);
 //		System.out.println("sun.r="+(R_SUN*PPM*SUN_SCALE)+"\tplanet.r="+(R_EARTH*PPM*PLANET_SCALE));
 //		System.out.println("sun.loc="+star.x()+", "+star.y() + "\tplanet.loc="+planet.x()+","+planet.y());
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 	}
 	
 	// --------------------------------------------------------------
@@ -372,6 +379,8 @@ public class OrbitSim implements Game
 			
 			// draw text:
 			MyText.enterTextDrawMode(textOrthoMatrix);
+			
+			// on left side:
 			// display planet's name
 			mytext.write("planet: " + name, 0, Display.getHeight()-4.0f*mytext.fontSize());
 			// display elapsed time in earth years
@@ -383,6 +392,21 @@ public class OrbitSim implements Game
 			// display timescale
 			String timescaleDisplay = String.format("timescale = %1.2e", timescale);
 			mytext.write(timescaleDisplay, 0,  Display.getHeight()-mytext.fontSize());
+			
+			// on right side:
+			// display perihelion distance (AU and meters)
+			String perihelionDisplay = String.format("Rmin = %.3f AU", (x[0] / AU));
+			mytext.write(perihelionDisplay, 
+							Display.getWidth()-perihelionDisplay.length()*mytext.fontSize(), 
+							Display.getHeight()-mytext.fontSize());
+			String aphelionDisplay = String.format("Rmax = %.3f AU", (2*a - x[0]) / AU);
+			mytext.write(aphelionDisplay, 
+							Display.getWidth()-aphelionDisplay.length()*mytext.fontSize(), 
+							Display.getHeight()-2.0f*mytext.fontSize());
+			
+			// top-left: display "ESC : menu" so users know how to access the pause menu
+			mytext.write("ESC : menu", 0, 0);
+			
 			MyText.exitTextDrawMode(orthoMatrix);
 		}
 	}
@@ -443,7 +467,7 @@ public class OrbitSim implements Game
 
 	public void close(int iscrash)
 	{
-		System.out.println("\nExiting program" + (iscrash != 0 ? "as crash" : "") + ".");
+		System.out.println("\nExiting program" + (iscrash != 0 ? " as crash" : "") + ".");
 		Display.destroy();
 		System.exit(iscrash);
 	}
