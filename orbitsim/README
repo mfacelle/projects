@@ -1,6 +1,8 @@
 Orbit Sim
 Mike Facelle
-10/9/14
+10/17/14
+
+This is still a work-in-progress, as the simulation is not totally accurate.  This is stated below.
 
 TO RUN:
 Run the orbitsim/run file in the command line.  This must be done from inside the orbitsim folder! As I have used the ./ directory in the program... still trying to figure out how to reference parent directories easily.
