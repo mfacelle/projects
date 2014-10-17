@@ -1,0 +1,11 @@
+Calculator
+Mike Facelle
+10/17/14
+
+This is a project I started working on while take Computer Science 1.  It is an expression parser / scientific calculator that will evaluate strings input by a user.  It can support up to three variables which can be easily changed.
+Since then, I have updated this project to use the built-in Java GUI classes, and fixed any bugs I encountered.
+My intention with this project was to build a simple calculator that could be used for course labs, since repeated calculations with just one or two variables changed can be tedious to type into an actual calculator.
+
+Since taking CS3, I have realized that this calculator could be quite a bit better.  For example, converting to postfix notation and using a Stack to evaluate the expression, rather than the recursive-descent-parsing method I found in a book given to me by Prof. Dos Reis, and what I could find online.  But it works just fine, so I have no plans to re-make it.
+
+Simply run calculator.jar to start it up.
