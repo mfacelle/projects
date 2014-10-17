@@ -5,6 +5,7 @@ Mike Facelle
 NOTE:
 It is unlikely I will finish or continue working on this game anytime soon, as school and other (cooler) physics/astronomy-based projects take up way too much time.
 This is the first draft of my development plan for this game.
+To find source code and files used, navigate into a phase_X/Y folder (where X and Y are phase and version numbers, respectively), and all files used in Unity will be located under Assets.
 
 ---
 A 3D first-person shooter, using crappy polygonal models I am making.
