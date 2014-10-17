@@ -1,25 +1,35 @@
 Projects
 Mike Facelle
-7/31/14
+10/17/14
 
 Directories:
--completed_files:	contains completed, executable project files
+- completed_files:	
+contains completed, executable project files
 
--suny_projects:		contains projects done for courses at SUNY New Paltz
-	-computer_architecture: MIPS-like processor design project
-	-embedded_linux: 	street lane recognition using OpenCV
+- suny_projects:		
+contains projects done for courses at SUNY New Paltz
+	+ computer_architecture: 
+	MIPS-like processor design project
+	+ embedded_linux: 	
+	street lane recognition using OpenCV
+	+ system_on_chip
+	multiprocessor system on an Altera FPGA
 
--calculator:		Java-based scientific parsing calculator
+- calculator:		
+Java-based scientific parsing calculator
 
--satellites:		contains code for a satellite-launch simulator
-			note: does not contain all the necessary code (LWJGL stuff, etc)
+- satellites:		
+contains executable .jar file, as well as source code for a satellite-launch simulator
 
--orbitsim:		contains code for a C++ orbit simulation, and Java-LWJGL renderer
-			note: may be missing some required java libraries
+- orbitsim:		
+contains executable script and .jar file, as well as source code for a C++ orbit simulation, and Java-LWJGL renderer
 
--games:			contains files for games developed either with Unity or Java/Eclipse
-			- Annihilation
-			- Siggimus
-			- Polygon FPS
-			- The Mazeling
+- games:			
+contains files for games developed either with Unity or Java/Eclipse
+	+ Annihilation:
+	My first Unity/iOS project.  A simple, addictive game.
+	+ Siggimus:
+	A simple game made with Java and LWJGL
+	+ Polygon_FPS:
+	A skeleton test-program for a FPS game
 
