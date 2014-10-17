@@ -3,7 +3,8 @@ Mike Facelle
 10/9/14
 
 TO RUN:
-Run the orbitsim/run file in the command line.  This will compile the C++ files, run them, and then it will run orbitsim.jar.
+Run the orbitsim/run file in the command line.  This must be done from inside the orbitsim folder! As I have used the ./ directory in the program... still trying to figure out how to reference parent directories easily.
+The orbitsim/run script will compile the C++ files, run them, and then it will run orbitsim.jar.
 
 Orbitsim is a program that will simulate a single planet's orbit, accurately in time, around a host star, in C++.  It will then plot the resulting orbit, in Java, using LWJGL.  The two languages communicate via a file called orbitsim.dat.
 Yes, it would be faster and more efficient to do all this in just one language (because outputting/inputting a file takes quite a bit of time), but I wanted to try a project in multiple languages that can be run using a single script.
