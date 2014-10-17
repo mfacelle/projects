@@ -1,12 +1,12 @@
 Annihilation
 Mike Facelle
 MF Games
-7/31/14
+10/17/14
 
-This is a non-code-signed version of this app, prior to uploading to the iOS App Store.
-This is the Unity project folder I used when developing this app, with the inclusion of the README and LICENSE files.
-The builds directory only includes the latest build, as all builds totalled over 6GB, which is an unneccesary amount to upload.
-Also included is the latest .app file (non-code-signed).
+Annihilation is a simple, addicting game in which players try to keep objects from falling off the screen by tapping on them.  Certain types of particles will annihilate one another, freeing up the screen, and scoring more points.  Try to get a high score!
 
-This game was uploaded to the iOS App Store and is currently available for download.
+The Assets folder contains all code, images, sound files, etc, used in the Unity project.
+The .app folder is a non-code-signed version of this app, before I registered as an Apple iOS developer and uploaded this to the app store
+
+This game was uploaded to the iOS App Store in August 2014 and is currently available for download (for free!).
 
