@@ -1,8 +1,8 @@
 Siggimus
 Mike Facelle
-7/31/14
+10/17/14
 
 Siggimus is a game with lots of shapes flying across the screen.  Players must click on two shapes to make a line between them, and this line will destroy other shapes, scoring points.  When a shape's line has destroyed its limit, the shape turns green and falls.  These green shapes are worth many more points.  The player must meet goals over the course of the game.
 
-This game was developed using Eclipse and Java, and the LWJGL API.  It will not be published, as it was mostly a learning experience, the graphics are crude, and there is no music/sound.
+This game was developed using Eclipse and Java, and the LWJGL API.  It will not be published, as it was mostly a learning experience, the graphics are crude, and there is no music/sound. This game really should be a touch-screen based game, as mouse clicking is tedious here.
 Almost all objects and classes used in this game were developed solely by myself, using many online references.
