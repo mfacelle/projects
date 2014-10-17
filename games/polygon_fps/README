@@ -1,28 +1,32 @@
 Polygon FPS (needs an actual title...)
 Mike Facelle
-8/23/14
+10/17/14
 
+NOTE:
+It is unlikely I will finish or continue working on this game anytime soon, as school and other (cooler) physics/astronomy-based projects take up way too much time.
+This is the first draft of my development plan for this game.
 
+---
 A 3D first-person shooter, using crappy polygonal models I am making.
 Currently has no plot or story... really needs one by the time phase 8 is done
-
+---
 
 Side Phase - textures and models (will probably change as plot/theme developed)
 some basic weapons completed
 no textures yet
 no enemy models yet
 
-Phase 0.5 - Movement GUI
+[DONE] Phase 0.5 - Movement GUI
 graphic completed, working on mechanics
 
-Phase 1 - Base Gameplay (movement)
+[DONE] Phase 1 - Base Gameplay (movement)
 accelerometer looking completed (may need sensitivity tweaking)
 map_0 for testing completed (may need rendering tweaking due to graphics limitations)
 firing projectiles completed (from test project)
 movement GUI in progress
 
 Phase 2 - Basic Gameplay (enemies/weapons)
-weapon swap completed (from test project), no swapping anims (intended for a later build)
+weapon swap completed, no swapping anims (intended for a later build)
 enemy class not complete
 
 Phase 3 - Spawners (weapon/enemy)
