@@ -1,0 +1,43 @@
+Satellite Simulator
+Mike Facelle
+10/24/14
+
+TO RUN:
+Simply run satellites.jar, either from the command-line, or by double-clicking (if available, such as when running Mac OS).
+
+----------
+
+Satellites is a program that will simulate launching satellites into orbit above the Earth (into low-earth-orbit).  The simulation is rendered in real-time (technically advanced by a large factor), and so is not perfectly accurate.
+Each satellite launched can be given a specific mass, initial velocity, and launch angle.  The simulation timescale can also be modified.
+While in orbit, a single satellite may be selected and given positive or negative thrust, with the thrust force defined by the user.  The selected satellite can be changed.
+Satellites are removed from the simulation when they collide with the Earth, though satellite-satellite collisions are ignored, since they are treated like point-masses.
+
+The scene, while calculated in a 2D, planar orbit, is rendered in 3D and can be rotated and zoomed using keyboard controls.
+
+NOTE:
+The source code provided in this directory is not all that is required to compile and run the program.  LWJGL libraries and classes, as well as LWJGL-based classes I have created (such a MyCurve, to render the satellite's path) are not included.  Only the code related to the actual simulation and rendering is found in this directory.
+
+----------
+
+Controls: (found in the pause menu while running the simulation)
+
+ESC  : toggle pause menu
+Q    : quit
+
+Input:
+T    : enter timescale
+V    : enter velocity
+A    : enter angle
+M    : enter mass
+F    : enter thrust force
+
+Camera:
+[,]  : -/+ scale
+I,K  : -/+ pitch
+J,L  : -/+ yaw
+U,O  : ccw/cw roll
+P    : reset view
+
+Satellites:
+-,+  : neg/pos thrust
+<,>  : change satellite
