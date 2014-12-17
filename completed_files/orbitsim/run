@@ -1,7 +1,0 @@
-#!/bin/bash
-
-cd ./simulation
-make
-./orbitsim
-cd ..
-java -jar orbitsim.jar
