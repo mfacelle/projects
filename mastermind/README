@@ -1,0 +1,17 @@
+Mastermind Game
+Mike Facelle
+12/28/14
+
+This is a C++ command-line version of the Mastermind game, where the user tries to guess the code and the computer generates a random code for the user to guess.
+It can be run by compiling using 'make' inside this directory (runs the makefile), then executing the ./run file.
+
+Mastermind is a code-breaking game where users must guess a randomly-generated code made up of 4 characters, each can be one of six colors:
+	(r=red, g=green, b=blue, m=magenta, y=yellow, c=cyan).
+
+The user guesses a 4-letter code, and they are told how many choices are the correct color and placement, and how many choices are the correct color but wrongly placed.  These do not correspond to specific placement, but are merely indicators of how many are correct.
+These responses in-game are displayed as:
+	cc = correct color, wrong placement 
+	cp = correct color and placement
+	-- = neither correct
+
+The user has 10 chances to correctly guess the code or they lose.
